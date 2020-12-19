@@ -1,0 +1,9 @@
+version: '2.2'
+
+services:
+  bot:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    network_mode: 'host'
