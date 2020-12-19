@@ -1,0 +1,26 @@
+import { Command } from "discord-akairo";
+
+export default class Name extends Command {
+    public constructor() {
+        super("name", {
+            aliases: ["name"],
+            args: [
+                {
+                    id: "param",
+                    type: "string",
+                    prompt: {
+                        start: "prompt description",
+                    },
+                },
+            ],
+            category: "category",
+            description: {
+                content: "description content",
+                usage: "<usage> [optional]",
+                example: ["example of how to use", "name some args"],
+            },
+        });
+    }
+
+    public async exec(message: Message, args) { }
+}

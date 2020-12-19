@@ -1,20 +1,18 @@
 import Client from "./core/client/Client";
-import { config } from "dotenv";
+
+import { readFileSync } from "fs";
 import { ClientOptions } from "./typings/ClientOptions";
-import DBEnviroment from "../knexfile";
+try {
+    const settings = JSON.parse(readFileSync(`${__dirname}/../settings.json`, "utf8"));
 
-import { Config } from "knex";
-config();
-
-if (!process.env.DEFAULTPREFIX) throw new Error("Must provide a prefix!");
-if (!process.env.TOKEN) throw new Error("Must provide a token");
-
-const dbEnv: Config = DBEnviroment.development;
-
-const options: ClientOptions = {
-    dbEnv: dbEnv,
-    defaultPrefix: process.env.DEFAULTPREFIX,
-};
-
-const BotClient = new Client(options);
-void BotClient.login(process.env.TOKEN);
+    if (!settings) throw new Error("Error getting settings json file");
+    const settings_key = Object.keys(settings);
+    ["ADMIN_ID", "CHANNEL_ID", "CLAIMER_ROLE", "DB_URI", "EMAIL", "PREFIX", "TIMES_ID", "TOKEN"].forEach((element) => {
+        if (!settings_key.includes(element)) throw new Error(`MISSING REQUIRED KEY ${element} IN SETTINGS.JSON`);
+    });
+    const BotClient = new Client(settings as ClientOptions);
+    void BotClient.login(settings.TOKEN);
+} catch (e) {
+    console.log(`Error on startup: ${e.message as string}`);
+    process.exitCode = 1;
+}
