@@ -27,6 +27,7 @@ export default class Hours extends Command {
 
         const records = await Log.find({
             submitter: user.id,
+            verified: true,
         });
 
         let { hours, minutes } = records.reduce(
