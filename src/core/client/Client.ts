@@ -4,7 +4,6 @@ import { ClientOptions } from "../../typings/ClientOptions";
 import mongoose from "mongoose";
 
 import "../../typings/Akairo";
-import "../../typings/Guild";
 import Logger from "../../logger/Logger";
 import { Intents } from "discord.js";
 
