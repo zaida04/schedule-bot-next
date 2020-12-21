@@ -40,7 +40,7 @@ export default class Hours extends Command {
             { hours: 0, minutes: 0 }
         );
 
-        hours += minutes % 60;
+        hours += Math.floor(minutes / 60);
         minutes %= 60;
 
         return message.channel.send(
