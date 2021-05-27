@@ -32,7 +32,7 @@ export default class Client extends AkairoClient {
                 useUnifiedTopology: true,
             })
             .catch((e) => {
-                console.error.bind(`Error connecting to MongoDB Database. ${e}`);
+                console.error.bind(`Error connecting to MongoDB Database. ${e.toString()}`);
                 process.exitCode = 1;
             });
         this.db = mongoose.connection;
